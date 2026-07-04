@@ -5,8 +5,7 @@ for family caregivers coordinating an elderly parent's health across
 scattered sources (clinic prescriptions, home vitals, diet notes, family
 group-chat updates), built for the Gen AI Academy APAC Edition hackathon.
 
-**Live interactive wireframe:** https://YOUR-GITHUB-USERNAME.github.io/YOUR-REPO-NAME/
-*(replace with your actual GitHub Pages URL — see "Deploying the wireframe" below)*
+**Live interactive wireframe:**  https://boice1204-coder.github.io/caresignal/
 
 ## What's in this repo
 
