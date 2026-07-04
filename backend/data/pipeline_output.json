@@ -1,0 +1,80 @@
+{
+  "subject_id": "subj_tan_ah_hoon",
+  "scoring_latency_ms": 6,
+  "alerts": [
+    {
+      "alert_id": "3135ba78-44f8-4a5d-b787-0869973e2db9",
+      "subject_id": "subj_tan_ah_hoon",
+      "rule_id": "drug_supplement_interaction",
+      "rule_label": "Losartan 50mg + Potassium 99mg interaction check",
+      "severity": "urgent",
+      "title": "New medication may not mix well with her potassium 99mg",
+      "body": "Her doctor prescribed Losartan 50mg. She has also been taking Potassium 99mg regularly. ARB blood-pressure medications reduce potassium excretion. Combined with a potassium supplement, this can raise blood potassium (hyperkalemia) to dangerous levels.",
+      "suggested_action": "Call her doctor's clinic",
+      "created_at": "2026-07-04T08:06:31.647242+00:00",
+      "trace": [
+        {
+          "source_table": "meds_log",
+          "source_event_id": "med_002",
+          "label": "Prescription logged \u2014 Losartan 50mg",
+          "detail": "50mg \u00b7 source: ocr_receipt",
+          "timestamp": "2026-06-30T23:26:03.982346+00:00"
+        },
+        {
+          "source_table": "meds_log",
+          "source_event_id": "med_001",
+          "label": "Supplement logged \u2014 Potassium 99mg",
+          "detail": "daily \u00b7 source: manual",
+          "timestamp": "2026-03-15T02:26:03.982346+00:00"
+        }
+      ]
+    },
+    {
+      "alert_id": "a8554f49-b8ef-4948-8b9c-6b51a47fd683",
+      "subject_id": "subj_tan_ah_hoon",
+      "rule_id": "vitals_trend",
+      "rule_label": "7-day rolling trend \u2014 bp_systolic slope check",
+      "severity": "watch",
+      "title": "Blood pressure systolic trending up over the past week",
+      "body": "Readings have climbed by about 17.5 points across 6 recent readings. Still below the urgent threshold, but the trend is worth watching.",
+      "suggested_action": "Add a note for the doctor",
+      "created_at": "2026-07-04T08:06:31.647311+00:00",
+      "trace": [
+        {
+          "source_table": "vitals_log",
+          "source_event_id": "range",
+          "label": "Vitals logged \u2014 6 readings",
+          "detail": "2026-06-27 \u2013 2026-07-02",
+          "timestamp": "2026-07-02T18:26:03.982346+00:00"
+        }
+      ]
+    },
+    {
+      "alert_id": "668380d6-66ae-4864-9638-61c90f8185d0",
+      "subject_id": "subj_tan_ah_hoon",
+      "rule_id": "meal_logging_gap",
+      "rule_label": "Meal-logging gap check \u2014 2+ misses in 7 days",
+      "severity": "monitor",
+      "title": "Meals skipped 2 times this week",
+      "body": "Caregiver notes show meals were skipped more than once in the past week. Not yet a pattern, but worth a gentle check-in \u2014 skipped meals can affect how medication behaves.",
+      "suggested_action": null,
+      "created_at": "2026-07-04T08:06:31.647329+00:00",
+      "trace": [
+        {
+          "source_table": "meal_log",
+          "source_event_id": "meal_001",
+          "label": "Meal note logged \u2014 \u201cSkipped lunch\u201d",
+          "detail": "2026-06-29 \u00b7 added by cg_astrid",
+          "timestamp": "2026-06-29T02:26:03.982346+00:00"
+        },
+        {
+          "source_table": "meal_log",
+          "source_event_id": "meal_002",
+          "label": "Meal note logged \u2014 \u201cSkipped lunch\u201d",
+          "detail": "2026-07-01 \u00b7 added by cg_astrid",
+          "timestamp": "2026-07-01T02:26:03.982346+00:00"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,704 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CareSignal — Interactive Wireframe</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy:#0B3B4A;
+    --teal:#0E7C86;
+    --teal-dark:#095059;
+    --seafoam:#CDEAE3;
+    --seafoam-line:#9FD6C9;
+    --amber:#B8790A;
+    --amber-bg:#FBEFD4;
+    --red:#C23B45;
+    --red-bg:#FBE3E1;
+    --green:#2F8F6F;
+    --green-bg:#E1F1E8;
+    --sand:#F6F1E7;
+    --white:#FFFFFF;
+    --ink:#1C2B2E;
+    --sub:#61716F;
+    --line:#E6DFD0;
+    --shadow: 0 20px 50px -18px rgba(11,59,74,0.35);
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:
+      radial-gradient(1200px 600px at 15% -10%, #EEF6F3 0%, transparent 60%),
+      var(--sand);
+    font-family:'Inter',sans-serif;
+    color:var(--ink);
+    min-height:100vh;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:48px 20px;
+  }
+  .stage{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:44px;
+    max-width:1080px;
+    width:100%;
+    flex-wrap:wrap;
+  }
+  /* ---------- annotations ---------- */
+  .notes{
+    width:236px;
+    display:flex;
+    flex-direction:column;
+    gap:22px;
+  }
+  .notes.right{align-items:flex-start;}
+  .note{
+    display:flex;
+    gap:12px;
+    opacity:0;
+    transform:translateY(6px);
+    transition:opacity .35s ease, transform .35s ease;
+  }
+  .note.show{opacity:1; transform:translateY(0);}
+  .note .badge{
+    flex:0 0 auto;
+    width:22px;height:22px;
+    border-radius:50%;
+    background:var(--teal);
+    color:#fff;
+    font-size:11px;
+    font-weight:700;
+    display:flex;align-items:center;justify-content:center;
+    margin-top:1px;
+  }
+  .note p{
+    margin:0;
+    font-size:13px;
+    line-height:1.5;
+    color:var(--sub);
+  }
+  .note b{color:var(--navy);}
+  .notes-top-label{
+    font-family:'Fraunces',serif;
+    font-size:13px;
+    font-weight:600;
+    color:var(--teal-dark);
+    letter-spacing:.02em;
+    margin-bottom:2px;
+  }
+
+  /* ---------- phone ---------- */
+  .phone-bezel{
+    width:344px;
+    background:linear-gradient(180deg,#0F4553,var(--navy));
+    border-radius:52px;
+    padding:14px;
+    box-shadow:var(--shadow);
+  }
+  .phone-screen{
+    position:relative;
+    background:var(--sand);
+    border-radius:38px;
+    height:706px;
+    overflow:hidden;
+    display:flex;
+    flex-direction:column;
+  }
+  .statusbar{
+    flex:0 0 auto;
+    height:40px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:0 26px;
+    font-size:13px;
+    font-weight:700;
+    color:var(--navy);
+  }
+  .statusbar .dots{display:flex; gap:4px; align-items:center;}
+  .statusbar .dots span{width:4px;height:4px;border-radius:50%;background:var(--navy);display:inline-block;}
+  .statusbar .signal{display:flex; gap:2px; align-items:flex-end; height:10px;}
+  .statusbar .signal i{width:3px;background:var(--navy);border-radius:1px;display:block;}
+
+  .screen{
+    position:absolute;
+    inset:40px 0 0 0;
+    display:none;
+    flex-direction:column;
+    opacity:0;
+    transform:translateX(12px);
+    transition:opacity .28s ease, transform .28s ease;
+  }
+  .screen.active{display:flex; opacity:1; transform:translateX(0);}
+
+  /* ---------- home screen ---------- */
+  .home-header{padding:14px 20px 10px;}
+  .brand{
+    font-family:'Fraunces',serif;
+    font-weight:600;
+    font-size:20px;
+    color:var(--navy);
+    display:flex;
+    align-items:center;
+    gap:8px;
+  }
+  .brand .dot{width:8px;height:8px;border-radius:50%;background:var(--teal);}
+  .subject-row{
+    margin-top:14px;
+    display:flex;
+    align-items:center;
+    gap:10px;
+  }
+  .avatar{
+    width:40px;height:40px;border-radius:50%;
+    background:var(--navy); color:#fff;
+    display:flex;align-items:center;justify-content:center;
+    font-size:14px;font-weight:700;flex:0 0 auto;
+  }
+  .subject-name{font-size:15px;font-weight:700;color:var(--navy);}
+  .subject-sub{font-size:12px;color:var(--sub); margin-top:1px;}
+  .circle-stack{margin-left:auto; display:flex;}
+  .circle-stack .mini{
+    width:24px;height:24px;border-radius:50%;
+    border:2px solid var(--sand);
+    background:var(--seafoam-line); color:var(--teal-dark);
+    font-size:10px;font-weight:700;
+    display:flex;align-items:center;justify-content:center;
+    margin-left:-8px;
+  }
+
+  .list-label{
+    padding:14px 20px 6px;
+    font-size:11px;
+    font-weight:700;
+    letter-spacing:.06em;
+    text-transform:uppercase;
+    color:var(--sub);
+  }
+  .list{
+    flex:1;
+    overflow-y:auto;
+    padding:2px 16px 90px;
+    display:flex;
+    flex-direction:column;
+    gap:10px;
+  }
+  .card{
+    background:#fff;
+    border-radius:16px;
+    padding:13px 14px;
+    display:flex;
+    gap:11px;
+    align-items:flex-start;
+    box-shadow:0 6px 16px -10px rgba(11,59,74,.25);
+    border-left:4px solid var(--teal);
+    cursor:pointer;
+    animation:pop .3s ease;
+  }
+  @keyframes pop{from{opacity:0; transform:translateY(-6px) scale(.98);} to{opacity:1; transform:translateY(0) scale(1);}}
+  .card.urgent{border-left-color:var(--red);}
+  .card.watch{border-left-color:var(--amber);}
+  .card.monitor{border-left-color:var(--green);}
+  .card .icon-wrap{
+    width:34px;height:34px;border-radius:10px;
+    display:flex;align-items:center;justify-content:center;
+    flex:0 0 auto;
+  }
+  .card.urgent .icon-wrap{background:var(--red-bg); color:var(--red);}
+  .card.watch .icon-wrap{background:var(--amber-bg); color:var(--amber);}
+  .card.monitor .icon-wrap{background:var(--green-bg); color:var(--green);}
+  .card .icon-wrap svg{width:18px;height:18px;}
+  .card-body{flex:1; min-width:0;}
+  .tag{
+    font-size:10px; font-weight:800; letter-spacing:.06em; text-transform:uppercase;
+  }
+  .card.urgent .tag{color:var(--red);}
+  .card.watch .tag{color:var(--amber);}
+  .card.monitor .tag{color:var(--green);}
+  .card-title{
+    font-size:13.5px; font-weight:600; color:var(--ink); margin-top:2px; line-height:1.35;
+  }
+  .card-time{font-size:11.5px; color:var(--sub); margin-top:4px;}
+  .card .chev{color:var(--sub); flex:0 0 auto; margin-top:6px;}
+  .card .chev svg{width:16px;height:16px;}
+
+  .fab{
+    position:absolute; right:20px; bottom:22px;
+    width:54px;height:54px;border-radius:50%;
+    background:var(--teal); color:#fff;
+    display:flex;align-items:center;justify-content:center;
+    box-shadow:0 12px 22px -8px rgba(14,124,134,.6);
+    border:none; cursor:pointer;
+  }
+  .fab svg{width:24px;height:24px;}
+
+  /* ---------- shared top bar for sub-screens ---------- */
+  .topbar{
+    flex:0 0 auto;
+    display:flex; align-items:center; gap:12px;
+    padding:14px 18px 12px;
+  }
+  .backbtn{
+    width:32px;height:32px;border-radius:50%;
+    background:#fff; border:1px solid var(--line);
+    display:flex;align-items:center;justify-content:center;
+    color:var(--navy); cursor:pointer; flex:0 0 auto;
+  }
+  .backbtn svg{width:16px;height:16px;}
+  .topbar-title{font-size:15px; font-weight:700; color:var(--navy);}
+
+  /* ---------- detail screen ---------- */
+  .detail-scroll{flex:1; overflow-y:auto; padding:4px 20px 30px;}
+  .sev-badge{
+    display:inline-block;
+    font-size:10.5px; font-weight:800; letter-spacing:.06em; text-transform:uppercase;
+    padding:5px 10px; border-radius:100px;
+  }
+  .sev-badge.urgent{background:var(--red-bg); color:var(--red);}
+  .sev-badge.watch{background:var(--amber-bg); color:var(--amber);}
+  .sev-badge.monitor{background:var(--green-bg); color:var(--green);}
+  .detail-title{
+    font-family:'Fraunces',serif;
+    font-size:19px; font-weight:600; color:var(--navy);
+    line-height:1.3; margin:10px 0 14px;
+  }
+  .detail-card{
+    background:#fff; border-radius:16px; padding:15px 16px;
+    font-size:13.5px; line-height:1.6; color:var(--ink);
+    box-shadow:0 6px 16px -10px rgba(11,59,74,.18);
+  }
+  .action-btn{
+    width:100%; margin-top:14px; padding:13px; border:none; border-radius:13px;
+    background:var(--teal); color:#fff; font-size:14px; font-weight:700;
+    cursor:pointer; font-family:'Inter',sans-serif;
+  }
+  .action-btn:active{background:var(--teal-dark);}
+  .divider{height:1px; background:var(--line); margin:18px 0;}
+  .why-row{
+    display:flex; align-items:center; justify-content:space-between;
+    cursor:pointer; padding:2px 0;
+  }
+  .why-row span{font-size:14px; font-weight:700; color:var(--navy);}
+  .why-row .chev{color:var(--teal); transition:transform .25s ease;}
+  .why-row .chev svg{width:18px;height:18px;}
+  .why-row.open .chev{transform:rotate(180deg);}
+  .why-panel{
+    max-height:0; overflow:hidden; transition:max-height .35s ease;
+  }
+  .why-panel.open{max-height:420px;}
+  .why-inner{
+    margin-top:12px; background:var(--seafoam); border:1px solid var(--seafoam-line);
+    border-radius:14px; padding:14px;
+  }
+  .rule-label{font-size:10.5px; font-weight:800; letter-spacing:.05em; text-transform:uppercase; color:var(--teal-dark);}
+  .rule-value{font-size:13.5px; font-weight:700; color:var(--navy); margin-top:3px;}
+  .trace{margin-top:12px; position:relative; padding-left:16px;}
+  .trace::before{
+    content:''; position:absolute; left:4px; top:6px; bottom:6px; width:2px;
+    background:var(--seafoam-line);
+  }
+  .trace-item{
+    position:relative; background:#fff; border-radius:10px; padding:9px 11px;
+    margin-bottom:8px; font-size:12px;
+  }
+  .trace-item::before{
+    content:''; position:absolute; left:-16px; top:14px; width:8px; height:2px; background:var(--seafoam-line);
+  }
+  .trace-item b{display:block; font-size:12.5px; color:var(--navy); font-weight:700;}
+  .trace-item span{color:var(--sub); font-size:11px;}
+  .why-foot{
+    margin-top:10px; font-size:11.5px; color:var(--teal-dark); font-style:italic; line-height:1.5;
+  }
+  .why-foot b{font-style:normal;}
+
+  /* ---------- log screen ---------- */
+  .log-scroll{flex:1; padding:6px 20px 24px;}
+  .cat-grid{display:grid; grid-template-columns:1fr 1fr; gap:10px;}
+  .cat-tile{
+    background:#fff; border:1px solid var(--line); border-radius:16px;
+    padding:18px 10px; display:flex; flex-direction:column; align-items:center; gap:8px;
+    cursor:pointer;
+  }
+  .cat-tile .cat-icon{
+    width:42px;height:42px;border-radius:12px; background:var(--seafoam); color:var(--teal-dark);
+    display:flex;align-items:center;justify-content:center;
+  }
+  .cat-tile .cat-icon svg{width:20px;height:20px;}
+  .cat-tile span{font-size:12.5px; font-weight:700; color:var(--navy);}
+
+  .log-form{background:#fff; border-radius:16px; padding:16px; box-shadow:0 6px 16px -10px rgba(11,59,74,.18);}
+  .log-form h4{margin:0 0 12px; font-size:14px; color:var(--navy); font-family:'Fraunces',serif; font-weight:600;}
+  .field-row{display:flex; gap:10px; margin-bottom:10px;}
+  .field{flex:1;}
+  .field label{display:block; font-size:11px; color:var(--sub); margin-bottom:5px; font-weight:600;}
+  .field input, .field textarea{
+    width:100%; border:1px solid var(--line); border-radius:10px; padding:10px 11px;
+    font-size:14px; font-family:'Inter',sans-serif; color:var(--ink); background:var(--sand);
+  }
+  .field textarea{resize:none; min-height:74px;}
+  .link-back{
+    display:inline-block; margin-bottom:12px; font-size:12.5px; color:var(--teal-dark); font-weight:700; cursor:pointer;
+  }
+  .save-btn{
+    width:100%; margin-top:6px; padding:13px; border:none; border-radius:13px;
+    background:var(--navy); color:#fff; font-size:14px; font-weight:700; cursor:pointer;
+    font-family:'Inter',sans-serif;
+  }
+
+  /* ---------- toast ---------- */
+  .toast{
+    position:absolute; left:20px; right:20px; bottom:26px;
+    background:var(--navy); color:#fff; border-radius:14px; padding:13px 16px;
+    font-size:13px; line-height:1.4; box-shadow:0 14px 30px -10px rgba(0,0,0,.4);
+    display:flex; gap:10px; align-items:flex-start;
+    transform:translateY(120%); transition:transform .35s ease;
+    z-index:20;
+  }
+  .toast.show{transform:translateY(0);}
+  .toast svg{width:18px;height:18px; flex:0 0 auto; color:var(--seafoam-line); margin-top:1px;}
+
+  .home-indicator{
+    position:absolute; bottom:8px; left:50%; transform:translateX(-50%);
+    width:120px; height:5px; border-radius:3px; background:var(--navy); opacity:.18;
+  }
+
+  @media (max-width:900px){
+    .stage{flex-direction:column;}
+    .notes{width:344px; flex-direction:row; flex-wrap:wrap; justify-content:center;}
+    .note{width:158px;}
+  }
+</style>
+</head>
+<body>
+
+<div class="stage">
+
+  <div class="notes left" id="notesLeft"></div>
+
+  <div class="phone-bezel">
+    <div class="phone-screen">
+      <div class="statusbar">
+        <span>9:41</span>
+        <div style="display:flex; gap:6px; align-items:center;">
+          <div class="signal"><i style="height:4px"></i><i style="height:6px"></i><i style="height:8px"></i><i style="height:10px"></i></div>
+        </div>
+      </div>
+
+      <!-- ============ SCREEN 1 : HOME ============ -->
+      <div class="screen active" id="screen-home">
+        <div class="home-header">
+          <div class="brand"><span class="dot"></span>CareSignal</div>
+          <div class="subject-row">
+            <div class="avatar">TH</div>
+            <div>
+              <div class="subject-name">Mom · Tan Ah Hoon</div>
+              <div class="subject-sub">3 people in this Circle</div>
+            </div>
+            <div class="circle-stack">
+              <div class="mini">A</div>
+              <div class="mini">W</div>
+              <div class="mini">J</div>
+            </div>
+          </div>
+        </div>
+        <div class="list-label">Priority alerts</div>
+        <div class="list" id="alertList"></div>
+        <button class="fab" onclick="goLog()" aria-label="Log an update">
+          ${'{{PLUS}}'}
+        </button>
+        <div class="home-indicator"></div>
+      </div>
+
+      <!-- ============ SCREEN 2 : DETAIL ============ -->
+      <div class="screen" id="screen-detail">
+        <div class="topbar">
+          <div class="backbtn" onclick="goHome()">${'{{ARROW}}'}</div>
+          <div class="topbar-title">Alert</div>
+        </div>
+        <div class="detail-scroll" id="detailContent"></div>
+        <div class="home-indicator"></div>
+      </div>
+
+      <!-- ============ SCREEN 3 : LOG ============ -->
+      <div class="screen" id="screen-log">
+        <div class="topbar">
+          <div class="backbtn" onclick="goHome()">${'{{ARROW}}'}</div>
+          <div class="topbar-title">Add an update</div>
+        </div>
+        <div class="log-scroll" id="logContent"></div>
+        <div class="home-indicator"></div>
+      </div>
+
+      <div class="toast" id="toast"></div>
+    </div>
+  </div>
+
+  <div class="notes right" id="notesRight"></div>
+
+</div>
+
+<script>
+/* ---------------- icons ---------------- */
+const ICONS = {
+  plus:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>`,
+  arrow:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>`,
+  chevR:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg>`,
+  chevD:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>`,
+  alert:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0Z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>`,
+  trend:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>`,
+  check:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>`,
+  pill:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><path d="M10.5 20.5 3.5 13.5a5 5 0 1 1 7-7l7 7a5 5 0 1 1-7 7Z"/><path d="m8.5 8.5 7 7"/></svg>`,
+  activity:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>`,
+  utensils:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><path d="M3 2v7a2 2 0 0 0 2 2h1v11"/><path d="M6 2v7"/><path d="M9 2v7"/><path d="M18 2c-1.6 2-2.2 4.2-2.2 6.2A4 4 0 0 0 20 12v10"/></svg>`,
+  message:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>`,
+  shield:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10Z"/><polyline points="9 12 11 14 15 10"/></svg>`
+};
+document.getElementById('screen-home').querySelector('.fab').innerHTML = ICONS.plus;
+document.querySelectorAll('#screen-detail .backbtn, #screen-log .backbtn').forEach(b=>b.innerHTML = ICONS.arrow);
+
+/* ---------------- data ---------------- */
+const SEV = {
+  urgent:{label:'Urgent', icon:ICONS.alert, cls:'urgent'},
+  watch:{label:'Watch', icon:ICONS.trend, cls:'watch'},
+  monitor:{label:'Monitoring', icon:ICONS.check, cls:'monitor'}
+};
+
+let alerts = [
+  {
+    id:1, sev:'urgent', time:'2 min ago',
+    title:'New medication may not mix well with her supplement',
+    body:`Dr. Lim prescribed <b>Losartan</b> for blood pressure on Jul 1. Mom has also taken a <b>potassium supplement</b> daily since March. Together, they can push her potassium to unsafe levels.`,
+    action:'Call Dr. Lim\u2019s clinic',
+    rule:'ACE/ARB + potassium-sparing interaction check',
+    trace:[
+      {t:'Prescription logged \u2014 Losartan 50mg', s:'Jul 1, 3:12pm \u00b7 scanned from clinic receipt'},
+      {t:'Supplement logged \u2014 Potassium 99mg, daily', s:'Since Mar 14 \u00b7 added by Wei-Ming'}
+    ]
+  },
+  {
+    id:2, sev:'watch', time:'6 hr ago',
+    title:'Blood pressure trending up over 5 days',
+    body:`Morning systolic readings have climbed from <b>128 to 149</b> over the past 5 days. Still below the urgent threshold, but the trend is worth watching before the next clinic visit.`,
+    action:'Add a note for the doctor',
+    rule:'7-day rolling trend \u2014 systolic slope check',
+    trace:[
+      {t:'Vitals logged \u2014 5 readings', s:'Jun 27 \u2013 Jul 1 \u00b7 home BP monitor'},
+      {t:'Baseline range set', s:'From 90-day history \u00b7 auto-calculated'}
+    ]
+  },
+  {
+    id:3, sev:'monitor', time:'1 day ago',
+    title:'Lunch skipped twice this week',
+    body:`Caregiver notes show lunch was skipped on Monday and Wednesday. Not yet a pattern, but worth a gentle check-in \u2014 skipped meals can affect how her medication behaves.`,
+    action:null,
+    rule:'Meal-logging gap check \u2014 2+ misses in 7 days',
+    trace:[
+      {t:'Meal note logged \u2014 \u201cSkipped lunch\u201d', s:'Mon, Jul 29 \u00b7 added by Astrid'},
+      {t:'Meal note logged \u2014 \u201cSkipped lunch\u201d', s:'Wed, Jul 31 \u00b7 added by Astrid'}
+    ]
+  }
+];
+
+/* ---------------- render home ---------------- */
+function renderHome(){
+  const list = document.getElementById('alertList');
+  list.innerHTML = '';
+  alerts.forEach(a=>{
+    const s = SEV[a.sev];
+    const el = document.createElement('div');
+    el.className = 'card ' + a.sev;
+    el.onclick = ()=>openDetail(a.id);
+    el.innerHTML = `
+      <div class="icon-wrap">${s.icon}</div>
+      <div class="card-body">
+        <div class="tag">${s.label}</div>
+        <div class="card-title">${a.title}</div>
+        <div class="card-time">${a.time}</div>
+      </div>
+      <div class="chev">${ICONS.chevR}</div>
+    `;
+    list.appendChild(el);
+  });
+}
+
+/* ---------------- navigation ---------------- */
+function showScreen(id){
+  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+}
+function goHome(){ showScreen('screen-home'); setNotes('home'); }
+function goLog(){ renderLog(); showScreen('screen-log'); setNotes('log'); }
+
+function openDetail(id){
+  const a = alerts.find(x=>x.id===id);
+  const s = SEV[a.sev];
+  const c = document.getElementById('detailContent');
+  c.innerHTML = `
+    <span class="sev-badge ${a.sev}">${s.label}</span>
+    <div class="detail-title">${a.title}</div>
+    <div class="detail-card">${a.body}</div>
+    ${a.action ? `<button class="action-btn">${a.action}</button>` : ''}
+    <div class="divider"></div>
+    <div class="why-row" id="whyRow" onclick="toggleWhy()">
+      <span>Why am I seeing this?</span>
+      <div class="chev">${ICONS.chevD}</div>
+    </div>
+    <div class="why-panel" id="whyPanel">
+      <div class="why-inner">
+        <div class="rule-label">Rule triggered</div>
+        <div class="rule-value">${a.rule}</div>
+        <div class="trace">
+          ${a.trace.map(t=>`<div class="trace-item"><b>${t.t}</b><span>${t.s}</span></div>`).join('')}
+        </div>
+        <div class="why-foot"><b>Traced in 4 seconds.</b> A manual check like this usually takes 15\u201330 minutes.</div>
+      </div>
+    </div>
+  `;
+  showScreen('screen-detail');
+  setNotes('detail');
+}
+function toggleWhy(){
+  document.getElementById('whyRow').classList.toggle('open');
+  document.getElementById('whyPanel').classList.toggle('open');
+}
+
+/* ---------------- log screen ---------------- */
+const CATS = [
+  {key:'med', label:'Medication', icon:ICONS.pill},
+  {key:'vit', label:'Vitals', icon:ICONS.activity},
+  {key:'meal', label:'Meal / Diet', icon:ICONS.utensils},
+  {key:'note', label:'Note', icon:ICONS.message},
+];
+
+function renderLog(){
+  const c = document.getElementById('logContent');
+  c.innerHTML = `
+    <div class="cat-grid" id="catGrid">
+      ${CATS.map(cat=>`
+        <div class="cat-tile" onclick="openLogForm('${cat.key}')">
+          <div class="cat-icon">${cat.icon}</div>
+          <span>${cat.label}</span>
+        </div>
+      `).join('')}
+    </div>
+  `;
+}
+
+function openLogForm(key){
+  const cat = CATS.find(c=>c.key===key);
+  const c = document.getElementById('logContent');
+  let formHtml = '';
+  if(key==='vit'){
+    formHtml = `
+      <div class="field-row">
+        <div class="field"><label>Systolic</label><input type="number" id="sys" placeholder="e.g. 128"></div>
+        <div class="field"><label>Diastolic</label><input type="number" id="dia" placeholder="e.g. 82"></div>
+      </div>
+    `;
+  } else if(key==='med'){
+    formHtml = `<div class="field"><label>What was prescribed?</label><input type="text" id="freeInput" placeholder="e.g. Losartan 50mg"></div>`;
+  } else if(key==='meal'){
+    formHtml = `<div class="field"><label>What did she eat / skip?</label><textarea id="freeInput" placeholder="e.g. Skipped lunch again"></textarea></div>`;
+  } else {
+    formHtml = `<div class="field"><label>Quick note</label><textarea id="freeInput" placeholder="Anything worth flagging for the family"></textarea></div>`;
+  }
+  c.innerHTML = `
+    <div class="link-back" onclick="renderLog()">&larr; Categories</div>
+    <div class="log-form">
+      <h4>${cat.label}</h4>
+      ${formHtml}
+      <button class="save-btn" onclick="submitLog('${key}')">Save update</button>
+    </div>
+  `;
+}
+
+function submitLog(key){
+  if(key==='vit'){
+    const sys = parseInt(document.getElementById('sys').value) || 0;
+    if(sys >= 150){
+      alerts.unshift({
+        id: Date.now(), sev:'watch', time:'just now',
+        title:`New systolic reading of ${sys} is above her usual range`,
+        body:`A fresh home BP reading came in at <b>${sys}</b>, above her typical range. Not urgent yet \u2014 CareSignal will keep watching the next few readings for a trend.`,
+        action:'Add a note for the doctor',
+        rule:'Single-reading threshold check \u2014 systolic \u2265 150',
+        trace:[
+          {t:`Vitals logged \u2014 Systolic ${sys}`, s:'Just now \u00b7 home BP monitor'},
+          {t:'Compared against 90-day baseline', s:'Auto-calculated \u00b7 typical range 118\u2013134'}
+        ]
+      });
+      showToast(true, `Logged \u2014 and flagged. Systolic ${sys} is outside her usual range, so a new Watch alert was just added.`);
+      renderHome();
+    } else {
+      showToast(false, `Logged. Systolic ${sys||'\u2014'} is within her usual range \u2014 no new risks found.`);
+    }
+  } else {
+    showToast(false, `Logged. CareSignal is checking this against her other data now.`);
+  }
+  setTimeout(()=>{ goHome(); }, 1500);
+}
+
+function showToast(alertIcon, msg){
+  const t = document.getElementById('toast');
+  t.innerHTML = `${alertIcon ? ICONS.alert : ICONS.shield}<div>${msg}</div>`;
+  t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'), 3200);
+}
+
+/* ---------------- annotations ---------------- */
+const NOTES = {
+  home:{
+    side:'left',
+    items:[
+      ['1','Colour-coded the moment you open it','red, amber, green \u2014 not a list of numbers to interpret.'],
+      ['2','One tap adds a data point','logging shouldn\u2019t be the hard part of caregiving.']
+    ]
+  },
+  detail:{
+    side:'right',
+    items:[
+      ['3','Plain language first','jargon only shows up if you go looking for it.'],
+      ['4','Nothing is a black box','every alert opens into the exact rule and source data behind it.']
+    ]
+  },
+  log:{
+    side:'left',
+    items:[
+      ['5','Ten seconds to log','four categories, minimal typing.'],
+      ['6','Feed the engine, live','a new reading can trigger a new alert in the same session \u2014 that\u2019s the acceleration story, not just a slide claim.']
+    ]
+  }
+};
+function setNotes(screen){
+  const left = document.getElementById('notesLeft');
+  const right = document.getElementById('notesRight');
+  left.innerHTML=''; right.innerHTML='';
+  const conf = NOTES[screen];
+  const target = conf.side==='left' ? left : right;
+  const label = document.createElement('div');
+  label.className='notes-top-label';
+  label.textContent = screen==='home' ? 'Family Circle home' : screen==='detail' ? 'Alert detail' : 'Quick log';
+  target.appendChild(label);
+  conf.items.forEach(([n,strong,rest])=>{
+    const d = document.createElement('div');
+    d.className='note';
+    d.innerHTML = `<div class="badge">${n}</div><p><b>${strong}</b> \u2014 ${rest}</p>`;
+    target.appendChild(d);
+  });
+  requestAnimationFrame(()=>{
+    target.querySelectorAll('.note').forEach((n,i)=>setTimeout(()=>n.classList.add('show'), i*90));
+  });
+}
+
+/* ---------------- init ---------------- */
+renderHome();
+setNotes('home');
+</script>
+</body>
+</html>

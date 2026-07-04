@@ -1,0 +1,137 @@
+{
+  "meds_log": [
+    {
+      "event_id": "med_001",
+      "subject_id": "subj_tan_ah_hoon",
+      "caregiver_id": "cg_weiming",
+      "drug_name": "Potassium 99mg",
+      "dose_mg": 99,
+      "frequency": "daily",
+      "is_supplement": true,
+      "source": "manual",
+      "logged_at": "2026-03-15T02:26:03.982346+00:00"
+    },
+    {
+      "event_id": "med_002",
+      "subject_id": "subj_tan_ah_hoon",
+      "caregiver_id": "cg_astrid",
+      "drug_name": "Losartan 50mg",
+      "dose_mg": 50,
+      "frequency": "daily",
+      "is_supplement": false,
+      "source": "ocr_receipt",
+      "logged_at": "2026-06-30T23:26:03.982346+00:00"
+    }
+  ],
+  "vitals_log": [
+    {
+      "event_id": "vit_sys_000",
+      "subject_id": "subj_tan_ah_hoon",
+      "caregiver_id": "cg_astrid",
+      "metric": "bp_systolic",
+      "value": 128.0,
+      "unit": "mmHg",
+      "source": "ble_monitor",
+      "logged_at": "2026-06-26T18:26:03.982346+00:00"
+    },
+    {
+      "event_id": "vit_sys_001",
+      "subject_id": "subj_tan_ah_hoon",
+      "caregiver_id": "cg_astrid",
+      "metric": "bp_systolic",
+      "value": 131.5,
+      "unit": "mmHg",
+      "source": "ble_monitor",
+      "logged_at": "2026-06-27T18:26:03.982346+00:00"
+    },
+    {
+      "event_id": "vit_sys_002",
+      "subject_id": "subj_tan_ah_hoon",
+      "caregiver_id": "cg_astrid",
+      "metric": "bp_systolic",
+      "value": 135.0,
+      "unit": "mmHg",
+      "source": "ble_monitor",
+      "logged_at": "2026-06-28T18:26:03.982346+00:00"
+    },
+    {
+      "event_id": "vit_sys_003",
+      "subject_id": "subj_tan_ah_hoon",
+      "caregiver_id": "cg_astrid",
+      "metric": "bp_systolic",
+      "value": 138.5,
+      "unit": "mmHg",
+      "source": "ble_monitor",
+      "logged_at": "2026-06-29T18:26:03.982346+00:00"
+    },
+    {
+      "event_id": "vit_sys_004",
+      "subject_id": "subj_tan_ah_hoon",
+      "caregiver_id": "cg_astrid",
+      "metric": "bp_systolic",
+      "value": 142.0,
+      "unit": "mmHg",
+      "source": "ble_monitor",
+      "logged_at": "2026-06-30T18:26:03.982346+00:00"
+    },
+    {
+      "event_id": "vit_sys_005",
+      "subject_id": "subj_tan_ah_hoon",
+      "caregiver_id": "cg_astrid",
+      "metric": "bp_systolic",
+      "value": 145.5,
+      "unit": "mmHg",
+      "source": "ble_monitor",
+      "logged_at": "2026-07-01T18:26:03.982346+00:00"
+    },
+    {
+      "event_id": "vit_sys_006",
+      "subject_id": "subj_tan_ah_hoon",
+      "caregiver_id": "cg_astrid",
+      "metric": "bp_systolic",
+      "value": 149.0,
+      "unit": "mmHg",
+      "source": "ble_monitor",
+      "logged_at": "2026-07-02T18:26:03.982346+00:00"
+    },
+    {
+      "event_id": "vit_dia_000",
+      "subject_id": "subj_tan_ah_hoon",
+      "caregiver_id": "cg_astrid",
+      "metric": "bp_diastolic",
+      "value": 82,
+      "unit": "mmHg",
+      "source": "ble_monitor",
+      "logged_at": "2026-07-02T18:26:03.982346+00:00"
+    }
+  ],
+  "meal_log": [
+    {
+      "event_id": "meal_001",
+      "subject_id": "subj_tan_ah_hoon",
+      "caregiver_id": "cg_astrid",
+      "meal": "lunch",
+      "status": "skipped",
+      "note": "Wasn't hungry",
+      "logged_at": "2026-06-29T02:26:03.982346+00:00"
+    },
+    {
+      "event_id": "meal_002",
+      "subject_id": "subj_tan_ah_hoon",
+      "caregiver_id": "cg_astrid",
+      "meal": "lunch",
+      "status": "skipped",
+      "note": "Napped through it",
+      "logged_at": "2026-07-01T02:26:03.982346+00:00"
+    },
+    {
+      "event_id": "meal_003",
+      "subject_id": "subj_tan_ah_hoon",
+      "caregiver_id": "cg_weiming",
+      "meal": "dinner",
+      "status": "eaten",
+      "note": null,
+      "logged_at": "2026-07-02T02:26:03.982346+00:00"
+    }
+  ]
+}
